@@ -34,27 +34,34 @@ function App() {
       .photos("person", 1, 10, { orientation: "landscape" })
       .then(toJson)
       .then((json) => {
-        setProfilePics(json.results);
+        let nProfiles = profiles.length;
+        const results = json.results.slice(0, nProfiles);
+        setProfilePics(results.map((result) => result.urls.raw));
       });
   }, []);
 
-  return (
-    <Container>
-      <div className="app">
-        {profiles.map((profile, index) => {
-          return (
-            <Card key={index} style={{ width: "18rem" }}>
-              <Card.Img variant="top" src={profilePics[index].urls.raw} />
-              <Card.Body>
-                <Card.Title>{profile.name}</Card.Title>
-                <Card.Text>{profile.text}</Card.Text>
-              </Card.Body>
-            </Card>
-          );
-        })}
-      </div>
-    </Container>
-  );
+  if (profilePics !== undefined || profilePics !== null) {
+    return (
+      <Container>
+        <div className="app">
+          {profiles.map((profile, index) => {
+            return (
+              <Card key={index} style={{ width: "18rem" }}>
+                <Card.Img variant="top" src={profilePics[index]} />
+                <Card.Body>
+                  <Card.Title>{profile.name}</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    {profile.position}
+                  </Card.Subtitle>
+                  <Card.Text>{profile.text}</Card.Text>
+                </Card.Body>
+              </Card>
+            );
+          })}
+        </div>
+      </Container>
+    );
+  }
 }
 
 export default App;
