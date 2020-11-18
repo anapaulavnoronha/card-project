@@ -1,5 +1,9 @@
 .app {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  margin-top: 20px;
+  > .profiles-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 40px;
+  }
 }

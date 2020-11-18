@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import "./App.scss";
 import Unsplash, { toJson } from "unsplash-js";
 import Container from "react-bootstrap/Container";
-import Card from "react-bootstrap/Card";
-const API_KEY = process.env.REACT_APP_ACCESS_KEY;
+import SearchBar from "./components/SearchBar/SearchBar";
+import ProfileCard from "./components/ProfileCard/ProfileCard";
+import "./App.scss";
 
+const API_KEY = process.env.REACT_APP_ACCESS_KEY;
 const unsplash = new Unsplash({ accessKey: API_KEY });
 
-let profiles = [
+let mockProfiles = [
   {
     name: "Ana",
     position: "Frontend Enginner",
@@ -27,41 +28,38 @@ let profiles = [
 ];
 
 function App() {
-  const [profilePics, setProfilePics] = useState([]);
+  const [profiles, setProfiles] = useState([]);
 
   useEffect(() => {
     unsplash.search
       .photos("person", 1, 10, { orientation: "landscape" })
       .then(toJson)
       .then((json) => {
-        let nProfiles = profiles.length;
-        const results = json.results.slice(0, nProfiles);
-        setProfilePics(results.map((result) => result.urls.raw));
+        let nProfiles = mockProfiles.length;
+        const apiResults = json.results.slice(0, nProfiles);
+        const apiResultsImages = apiResults.map((result) => result.urls.raw);
+        mockProfiles.forEach((profile, index) => {
+          profile.image = apiResultsImages[index];
+        });
+        setProfiles(mockProfiles);
       });
   }, []);
 
-  if (profilePics !== undefined || profilePics !== null) {
-    return (
-      <Container>
-        <div className="app">
-          {profiles.map((profile, index) => {
-            return (
-              <Card key={index} style={{ width: "18rem" }}>
-                <Card.Img variant="top" src={profilePics[index]} />
-                <Card.Body>
-                  <Card.Title>{profile.name}</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    {profile.position}
-                  </Card.Subtitle>
-                  <Card.Text>{profile.text}</Card.Text>
-                </Card.Body>
-              </Card>
-            );
-          })}
+  return (
+    <Container>
+      <div className="app">
+        <SearchBar />
+        <div className="profiles-container">
+          {profiles &&
+            profiles.map((profile, index) => {
+              return (
+                <ProfileCard key={`profile-${index}`} profileInfo={profile} />
+              );
+            })}
         </div>
-      </Container>
-    );
-  }
+      </div>
+    </Container>
+  );
 }
 
 export default App;
