@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
+import "./App.scss";
 import Unsplash, { toJson } from "unsplash-js";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
@@ -31,20 +31,20 @@ function App() {
 
   useEffect(() => {
     unsplash.search
-      .photos("dogs", 1, 10, { orientation: "portrait", color: "green" })
+      .photos("person", 1, 10, { orientation: "landscape" })
       .then(toJson)
       .then((json) => {
-        setProfilePics(json.results[0].urls.full);
+        setProfilePics(json.results);
       });
   }, []);
 
   return (
     <Container>
-      <div className="App">
+      <div className="app">
         {profiles.map((profile, index) => {
           return (
-            <Card key={index}>
-              <Card.Img variant="top" src={profilePics} />
+            <Card key={index} style={{ width: "18rem" }}>
+              <Card.Img variant="top" src={profilePics[index].urls.raw} />
               <Card.Body>
                 <Card.Title>{profile.name}</Card.Title>
                 <Card.Text>{profile.text}</Card.Text>
