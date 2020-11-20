@@ -61,7 +61,10 @@ function App() {
   return (
     <Container>
       <div className="app">
-        <SearchBar handleSearch={handleSearchCandidate} />
+        <div className="action-bar">
+          <SearchBar handleSearch={handleSearchCandidate} />
+          <button className="btn-add">Add candidate</button>
+        </div>
         <div className="profiles-container">
           {filteredProfiles &&
             filteredProfiles.map((profile, index) => {

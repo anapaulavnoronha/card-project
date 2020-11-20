@@ -1,6 +1,20 @@
 .app {
   margin-top: 20px;
 
+  > .action-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+
+    > .btn-add {
+      border: none;
+      border-radius: 5px;
+      width: 140px;
+      height: 40px;
+    }
+  }
+
   > .profiles-container {
     display: flex;
     flex-direction: row;
