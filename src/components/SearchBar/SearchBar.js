@@ -8,13 +8,14 @@ const SearchBar = ({ handleSearch }) => {
   return (
     <div className="search-bar">
       <InputGroup>
+        <InputGroup.Append className="search-icon-container">
+          <span className="search-icon"></span>
+        </InputGroup.Append>
         <FormControl
+          className="search-input shadow-none"
           placeholder="candidate's name"
           onChange={(e) => handleSearch(e.target.value)}
         />
-        <InputGroup.Append>
-          <Button variant="outline-secondary">Search</Button>
-        </InputGroup.Append>
       </InputGroup>
     </div>
   );
