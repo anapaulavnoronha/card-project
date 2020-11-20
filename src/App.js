@@ -12,23 +12,28 @@ let mockProfiles = [
   {
     name: "Ana",
     position: "Frontend Enginner",
-    text:
-      "Originally from Brazil, Ana started on the company this year as a Frontend Enginner",
   },
   {
     name: "Sophie",
     position: "Backend Enginner",
-    text: "Shophie is joining the company to improve the product backend code!",
   },
   {
     name: "Lucas",
     position: "UX Designer",
-    text: "Lucas is passionate about Design and is very detail-oriented.",
+  },
+  {
+    name: "Felipe",
+    position: "Project Manager",
+  },
+  {
+    name: "Leo",
+    position: "Frontend Enginner",
   },
 ];
 
 function App() {
   const [profiles, setProfiles] = useState([]);
+  const [filteredProfiles, setFilteredProfiles] = useState([]);
 
   useEffect(() => {
     unsplash.search
@@ -42,16 +47,24 @@ function App() {
           profile.image = apiResultsImages[index];
         });
         setProfiles(mockProfiles);
+        setFilteredProfiles(mockProfiles);
       });
   }, []);
+
+  const handleSearchCandidate = (value) => {
+    let filteredProfiles = profiles.filter((profile) => {
+      return profile.name.toLowerCase().includes(value.toLocaleLowerCase());
+    });
+    setFilteredProfiles(filteredProfiles);
+  };
 
   return (
     <Container>
       <div className="app">
-        <SearchBar />
+        <SearchBar handleSearch={handleSearchCandidate} />
         <div className="profiles-container">
-          {profiles &&
-            profiles.map((profile, index) => {
+          {filteredProfiles &&
+            filteredProfiles.map((profile, index) => {
               return (
                 <ProfileCard key={`profile-${index}`} profileInfo={profile} />
               );
