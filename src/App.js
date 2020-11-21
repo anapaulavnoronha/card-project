@@ -3,6 +3,7 @@ import Unsplash, { toJson } from "unsplash-js";
 import Container from "react-bootstrap/Container";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ProfileCard from "./components/ProfileCard/ProfileCard";
+import history from "./history";
 import "./App.scss";
 
 const API_KEY = process.env.REACT_APP_ACCESS_KEY;
@@ -63,7 +64,12 @@ const App = () => {
       <div className="app">
         <div className="action-bar">
           <SearchBar handleSearch={handleSearchCandidate} />
-          <button className="btn-add">Add candidate</button>
+          <button
+            className="btn-add"
+            onClick={() => history.push("/add-candidate")}
+          >
+            Add candidate
+          </button>
         </div>
         <div className="profiles-container">
           {filteredProfiles &&

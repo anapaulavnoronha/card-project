@@ -2,7 +2,7 @@ import React from "react";
 import { Router, Switch, Route } from "react-router-dom";
 
 import Home from "./App";
-import AddCandidate from "./pages/AddCandidate";
+import AddCandidate from "./pages/AddCandidate/AddCandidate";
 import history from "./history";
 
 const Routes = () => {
