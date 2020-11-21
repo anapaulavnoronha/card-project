@@ -31,7 +31,7 @@ let mockProfiles = [
   },
 ];
 
-function App() {
+const App = () => {
   const [profiles, setProfiles] = useState([]);
   const [filteredProfiles, setFilteredProfiles] = useState([]);
 
@@ -76,6 +76,6 @@ function App() {
       </div>
     </Container>
   );
-}
+};
 
 export default App;
